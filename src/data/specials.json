@@ -1,0 +1,14 @@
+{
+  "_note": "SAMPLE CONTENT - names, descriptions, prices and dates are placeholders. Edit this file, then run `npm run build`.",
+  "items": [
+    { "name": "Roasted Pork Chop", "image": "pork", "category": "Chef's Special", "price": 24, "availability": "Sample: available this season", "description": "Sample dish. Seared chop with roasted potatoes and garden greens." },
+    { "name": "Pan-Seared Salmon", "image": "salmon", "category": "Seasonal", "price": 22, "availability": "Sample: seasonal", "description": "Sample dish. Crisp-skinned salmon with citrus and fresh vegetables." },
+    { "name": "Steak & Hand-Cut Fries", "image": "steak", "category": "Chef's Special", "price": 28, "availability": "Sample: weekends", "description": "Sample dish. Sliced steak, herbs and golden fries." },
+    { "name": "Chocolate Layer Glass", "image": "dessert", "category": "Dessert", "price": 9, "availability": "Sample: all week", "description": "Sample dessert. Layers of chocolate, cream and crunch." },
+    { "name": "Blueberry French Toast", "image": "toast", "category": "Brunch", "price": 14, "availability": "Sample: weekend brunch", "description": "Sample dish. Thick toast, blueberries and banana." },
+    { "name": "Garden Fruit Cooler", "image": "cocktail", "category": "Drinks", "price": 7, "availability": "Sample: summer", "description": "Sample drink. Fresh fruit, mint and ice." },
+    { "name": "Slow-Cooked Ribs", "image": "ribs", "category": "Promotion", "price": 26, "availability": "Sample: promotion period [dates]", "description": "Sample promotion. Tender ribs with a sticky glaze and fresh tomatoes." },
+    { "name": "Penne Arrabbiata", "image": "penne", "category": "Seasonal", "price": 17, "availability": "Sample: lunch", "description": "Sample dish. Penne in a slow-simmered tomato sauce." }
+  ],
+  "featured": ["Roasted Pork Chop", "Pan-Seared Salmon", "Steak & Hand-Cut Fries"]
+}

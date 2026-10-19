@@ -1,0 +1,74 @@
+<!-- title: Welcome | description: Recipe Secrets Restaurant - seasonal cooking, warm hospitality and an unhurried dining experience. Explore our specials and reserve a table. -->
+<section class="hero">
+  <div class="hero__img">{{img:hero:1800:1100:eager}}</div>
+  <div class="hero__shade"></div>
+  <div class="wrap hero__in">
+    <p class="eyebrow eyebrow--light reveal">Welcome to Recipe Secrets</p>
+    <h1 class="reveal">Good food,<br><em>quietly</em> perfected.</h1>
+    <p class="hero__lead reveal">Seasonal cooking, a warm room and generous hospitality. Come hungry, stay a while.</p>
+    <div class="btn-row reveal">
+      <a class="btn" href="/reservation/">Make a Reservation</a>
+      <a class="btn btn--ghost" href="/specials/">Explore Specials</a>
+    </div>
+  </div>
+</section>
+
+<section class="section intro">
+  <div class="wrap split">
+    <div class="split__text reveal">
+      <p class="eyebrow">Our table</p>
+      <h2>A dining room made for lingering</h2>
+      <p>At Recipe Secrets we cook with the seasons and serve with warmth. Every plate is built around fresh ingredients and a little patience, and every guest is welcomed like a regular.</p>
+      <p class="muted">[Placeholder: add a short, accurate introduction to the restaurant here.]</p>
+      <a class="link-arrow" href="/about/">Read our story <span aria-hidden="true">&rarr;</span></a>
+    </div>
+    <div class="split__media reveal">
+      <div class="frame frame--tall">{{img:dining:900:1100}}</div>
+      <div class="frame frame--small">{{img:chef:600:600}}</div>
+    </div>
+  </div>
+</section>
+
+<section class="usps">
+  <div class="wrap usps__grid">
+    <div class="usp reveal"><span class="usp__n">01</span><h3>Seasonal ingredients</h3><p>Menus shaped by what is fresh and in season.</p></div>
+    <div class="usp reveal"><span class="usp__n">02</span><h3>Made with care</h3><p>Dishes prepared to order, from stock to sauce.</p></div>
+    <div class="usp reveal"><span class="usp__n">03</span><h3>Warm hospitality</h3><p>Relaxed, attentive service for every occasion.</p></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section__head reveal">
+      <p class="eyebrow">Featured dishes</p>
+      <h2>From the kitchen</h2>
+      <p class="muted">Sample dishes and prices &mdash; edit <code>src/data/specials.json</code>.</p>
+    </div>
+    <div class="cards">{{specials_featured}}</div>
+    <p class="center"><a class="btn btn--outline" href="/specials/">See all specials</a></p>
+  </div>
+</section>
+
+<section class="gallery" aria-label="Photo gallery">
+  <div class="gallery__grid">
+    <div class="g g1">{{img:bar:800:600}}</div>
+    <div class="g g2">{{img:wine:800:600}}</div>
+    <div class="g g3">{{img:terrace:800:600}}</div>
+    <div class="g g4">{{img:friends:800:600}}</div>
+  </div>
+</section>
+
+<section class="section visit">
+  <div class="wrap visit__grid">
+    <div class="visit__card reveal">
+      <p class="eyebrow">Visit us</p>
+      <h2>Find your table</h2>
+      <address>{{address}}</address>
+      <h3>Opening hours</h3>
+      {{hours}}
+      <p class="placeholder-note">Placeholder address and hours &mdash; edit src/data/site.json</p>
+      <div class="btn-row"><a class="btn" href="/reservation/">Reserve a table</a><a class="btn btn--outline" href="/contact/">Contact &amp; directions</a></div>
+    </div>
+    <div class="visit__img reveal">{{img:diningAlt:900:1000}}</div>
+  </div>
+</section>

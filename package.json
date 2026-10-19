@@ -1,0 +1,16 @@
+{
+  "name": "recipe-secrets-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static five-page website for Recipe Secrets Restaurant",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "dev": "node scripts/build.js && node scripts/serve.js",
+    "serve": "node scripts/serve.js",
+    "lint": "node scripts/lint.js",
+    "test": "node scripts/build.js && node scripts/lint.js && node scripts/test.js"
+  },
+  "devDependencies": {
+    "puppeteer-core": "^25.14.0"
+  }
+}
