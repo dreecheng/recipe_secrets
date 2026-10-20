@@ -23,14 +23,9 @@ vercel.json                Clean URLs for Vercel
 robots.txt, sitemap.xml    SEO
 ```
 
-## Run it locally
+## View it locally
 
-The pages use root-relative links (`/about/`, `/assets/...`), so serve the folder over http. Do not double-click the HTML files.
-
-```bash
-python -m http.server 3000      # then open http://localhost:3000
-# or, if you have Node installed:   npx serve .
-```
+Double-click **`index.html`** in this folder. It opens in your browser and the nav links work between pages. All links are relative, so no server, Node or Python is needed. (An internet connection is needed for the photos and Google Fonts.)
 
 ## Deploy to Vercel
 
@@ -38,8 +33,8 @@ python -m http.server 3000      # then open http://localhost:3000
 2. In Vercel choose **Add New > Project**, import the repo, and set **Framework Preset: Other**.
 3. Leave the **Build Command** and **Output Directory** empty (there is nothing to build) and deploy.
 
-Every `git push` to the main branch redeploys automatically. `vercel.json` enables clean URLs so `/about/` works.
-The same folder also deploys as-is on Netlify, Cloudflare Pages and GitHub Pages (at the root of a domain; for a GitHub Pages project site under `/repo-name/` the root-relative links would need that prefix).
+Every `git push` to the main branch redeploys automatically. `vercel.json` enables clean URLs, so `about/index.html` is served as `/about/`.
+The same folder also deploys as-is on Netlify, Cloudflare Pages and GitHub Pages (including GitHub Pages project sites, since all links are relative).
 
 ## Updating content
 
