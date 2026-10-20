@@ -1,73 +1,71 @@
 # Recipe Secrets Restaurant Website
 
-A five-page static website (Home, About, Specials, Reservation, Contact) in plain HTML, CSS and JavaScript.
-No frameworks, no runtime dependencies, no backend. A small Node script assembles the pages.
+A five-page static website (Home, About, Specials, Reservation, Contact) in **pure HTML, CSS and JavaScript**.
+No npm, no build step, no framework, no backend. What you see in the folder is exactly what gets deployed.
 
 > **All business details are placeholders** (address, phone, email, hours, dishes, prices). Replace them before launch.
-
-## Requirements
-
-- Node.js 18+ (only for building/testing; the output is plain static files)
-
-## Install, develop, build
-
-```bash
-npm install          # installs puppeteer-core (tests only)
-npm run dev          # build + serve dist/ at http://localhost:3000
-npm run build        # writes the deployable site to dist/
-npm run lint         # checks titles, meta tags, alt text, labels, internal links
-npm test             # build + lint + headless-browser tests (needs Chrome or Edge)
-```
-
-`npm test` auto-detects Chrome/Edge; set `CHROME_PATH` if yours is elsewhere. Set `SHOTS=some/folder` to save screenshots of every page at mobile, tablet and desktop sizes.
 
 ## Project layout
 
 ```
-src/
-  pages/        one file per page (home, about, specials, reservation, contact, 404)
-  partials/     layout.html (shared <head>); header/footer are built in scripts/build.js
-  data/         site.json (business details), specials.json (menu specials), images.json (photos)
-  assets/       css/styles.css, js/main.js, js/config.js, img/favicon.svg
-scripts/        build.js, serve.js, lint.js, test.js
-dist/           build output (generated; deploy this folder)
+index.html                 Home
+about/index.html           About
+specials/index.html        Specials
+reservation/index.html     Reservation
+contact/index.html         Contact
+404.html                   Not-found page
+assets/css/styles.css      All styling (colours and fonts are CSS variables at the top)
+assets/js/main.js          Mobile menu, scroll reveal, specials rendering, form validation
+assets/js/specials-data.js Editable specials (name, price, category, availability, image)
+assets/js/config.js        Form integration settings (email fallback / form service URL)
+assets/img/favicon.svg     Favicon
+vercel.json                Clean URLs for Vercel
+robots.txt, sitemap.xml    SEO
 ```
+
+## Run it locally
+
+The pages use root-relative links (`/about/`, `/assets/...`), so serve the folder over http. Do not double-click the HTML files.
+
+```bash
+python -m http.server 3000      # then open http://localhost:3000
+# or, if you have Node installed:   npx serve .
+```
+
+## Deploy to Vercel
+
+1. Push this folder to GitHub (the repo root must contain `index.html`).
+2. In Vercel choose **Add New > Project**, import the repo, and set **Framework Preset: Other**.
+3. Leave the **Build Command** and **Output Directory** empty (there is nothing to build) and deploy.
+
+Every `git push` to the main branch redeploys automatically. `vercel.json` enables clean URLs so `/about/` works.
+The same folder also deploys as-is on Netlify, Cloudflare Pages and GitHub Pages (at the root of a domain; for a GitHub Pages project site under `/repo-name/` the root-relative links would need that prefix).
 
 ## Updating content
 
 | To change | Edit |
 |---|---|
-| Address, phone, email, opening hours, map | `src/data/site.json` (set `mapQuery` to an address to show a Google map) |
-| Specials, prices, categories, availability | `src/data/specials.json` (`image` is a key from `images.json`) |
-| Photos | `src/data/images.json` (Unsplash photo id + alt text) |
-| Page copy | `src/pages/*.html` (look for `[Placeholder ...]`) |
-| Colours and fonts | CSS variables at the top of `src/assets/css/styles.css` |
-| Domain used in canonical/Open Graph/sitemap | `url` in `src/data/site.json` |
+| Specials, prices, categories, availability, photos | `assets/js/specials-data.js` (appears on Home and Specials) |
+| Address, phone, email, opening hours | the text in each page's HTML, and the footer on every page (search for `[Street address]`, `hello@example.com`, `+00 0000 0000`, `[hh:mm`) |
+| Map | replace the "Map coming soon" block in `contact/index.html` with a map `<iframe>` once the address is known |
+| Page copy | the HTML files (look for `[Placeholder ...]`) |
+| Colours and fonts | CSS variables at the top of `assets/css/styles.css` |
+| Domain in canonical / Open Graph / sitemap | search for `https://example.com` and replace it |
 
-Run `npm run build` after any change.
+Because the header and footer are repeated in each HTML file, change them in all five pages plus `404.html`.
 
 ## Forms (contact and reservation)
 
-Static hosting cannot receive form submissions, so the forms are validated in the browser and then handed off in one of two ways, configured in `src/assets/js/config.js`:
+Static hosting cannot receive form submissions, so the forms are validated in the browser and then handed off in one of two ways, configured in `assets/js/config.js`:
 
 1. **Email fallback (default):** the visitor's email app opens with the message pre-filled. The page clearly says it has **not been sent yet** and a reservation is **not confirmed**. Set `fallbackEmail` to the real address.
-2. **Form service:** set `forms.contact.endpoint` / `forms.reservation.endpoint` to a Formspree, Netlify Forms, Getform or booking-provider URL. Data is POSTed as JSON, and a success message is shown only if the service returns a 2xx response; otherwise the visitor gets an error and an email link.
+2. **Form service:** set `forms.contact.endpoint` / `forms.reservation.endpoint` to a Formspree, Getform or booking-provider URL. Data is POSTed as JSON, and a success message is shown only if the service returns a 2xx response; otherwise the visitor gets an error and an email link.
 
-Reservation dates in the past are blocked. Table availability cannot be checked on a static site, so submissions are always described as *requests*.
+Past reservation dates are blocked. Table availability cannot be checked on a static site, so submissions are always described as *requests*.
 
 ## Images
 
-Photos are loaded from [Unsplash](https://unsplash.com/license) (free to use, attribution optional) with responsive `srcset`, lazy loading and a gradient fallback if one fails to load. All photo URLs were checked and are loaded without errors in the tests. To self-host, download the images into `src/assets/img/` and change `unsplash()` in `scripts/build.js`.
-
-## Deployment (free hosting)
-
-Deploy the contents of `dist/`.
-
-- **Netlify:** build command `npm run build`, publish directory `dist` (or drag-and-drop the folder).
-- **Cloudflare Pages:** build command `npm run build`, output directory `dist`.
-- **GitHub Pages:** serve `dist/`. For a project site at `https://user.github.io/repo/`, build with the sub-path:
-  `BASE_PATH=/repo npm run build` (PowerShell: `$env:BASE_PATH="/repo"; npm run build`).
-  For a user/organisation site or custom domain, no `BASE_PATH` is needed.
+Photos are loaded from [Unsplash](https://unsplash.com/license) (free to use, attribution optional) with responsive `srcset`, lazy loading and a gradient fallback if one fails to load. To self-host, download the photos into `assets/img/` and update the image URLs in the HTML and in `specials-data.js`/`main.js`.
 
 ## Accessibility and SEO
 

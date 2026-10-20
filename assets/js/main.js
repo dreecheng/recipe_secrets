@@ -28,6 +28,31 @@
     reveals.forEach(function (el) { el.classList.add('is-in'); });
   }
 
+
+  // ---- Specials (rendered from assets/js/specials-data.js) ----
+  var data = window.SPECIALS;
+  var esc = function (s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+  var photo = function (id, w, h) { return 'https://images.unsplash.com/photo-' + encodeURIComponent(id) + '?auto=format&fit=crop&fm=jpg&q=70&w=' + w + '&h=' + h; };
+  var cardHtml = function (s) {
+    return '<article class="card" data-category="' + esc(s.category) + '">' +
+      '<div class="card__media"><img src="' + photo(s.image, 800, 600) + '" srcset="' + photo(s.image, 400, 300) + ' 400w, ' + photo(s.image, 800, 600) + ' 800w" sizes="(min-width: 900px) 400px, 100vw" alt="' + esc(s.alt) + '" width="800" height="600" loading="lazy" decoding="async" data-fallback><span class="tag">' + esc(s.category) + '</span></div>' +
+      '<div class="card__body"><div class="card__head"><h3>' + esc(s.name) + '</h3><span class="price" title="Sample price">' + esc(data.currency) + esc(s.price) + '</span></div>' +
+      '<p>' + esc(s.description) + '</p><p class="card__avail">' + esc(s.availability) + '</p></div></article>';
+  };
+  document.querySelectorAll('[data-specials]').forEach(function (grid) {
+    if (!data || !data.items) { grid.innerHTML = '<p class="empty">Specials are unavailable right now.</p>'; return; }
+    var list = grid.getAttribute('data-specials') === 'featured'
+      ? data.items.filter(function (i) { return (data.featured || []).indexOf(i.name) !== -1; })
+      : data.items;
+    grid.innerHTML = list.map(cardHtml).join('');
+  });
+  var chipBox = document.querySelector('.chips');
+  if (chipBox && data && data.items) {
+    var cats = ['All'];
+    data.items.forEach(function (i) { if (cats.indexOf(i.category) === -1) cats.push(i.category); });
+    chipBox.innerHTML = cats.map(function (c, i) { return '<button type="button" class="chip' + (i === 0 ? ' is-on' : '') + '" data-filter="' + esc(c) + '" aria-pressed="' + (i === 0) + '">' + esc(c) + '</button>'; }).join('');
+  }
+
   // ---- Image fallback ----
   document.querySelectorAll('img[data-fallback]').forEach(function (img) {
     var fail = function () {
